@@ -191,11 +191,43 @@
         const opcionesMobiliario = document.getElementById("opcionesMobiliario");
 
         locativo.addEventListener("change", () => {
-            opcionesLocativo.style.display = locativo.checked ? "block" : "none";
+            if (locativo.checked) {
+                // Mostrar locativo
+                opcionesLocativo.style.display = "block";
+
+                // Ocultar y desactivar mobiliario
+                opcionesMobiliario.style.display = "none";
+                mobiliario.checked = false;
+                mobiliario.disabled = true;
+
+                // Limpiar checks internos de mobiliario
+                document.querySelectorAll("input[name='mobiliario_op']")
+                    .forEach(el => el.checked = false);
+
+            } else {
+                opcionesLocativo.style.display = "none";
+                mobiliario.disabled = false;
+            }
         });
 
         mobiliario.addEventListener("change", () => {
-            opcionesMobiliario.style.display = mobiliario.checked ? "block" : "none";
+            if (mobiliario.checked) {
+                // Mostrar mobiliario
+                opcionesMobiliario.style.display = "block";
+
+                // Ocultar y desactivar locativo
+                opcionesLocativo.style.display = "none";
+                locativo.checked = false;
+                locativo.disabled = true;
+
+                // Limpiar checks internos de locativo
+                document.querySelectorAll("input[name='locativo_op']")
+                    .forEach(el => el.checked = false);
+
+            } else {
+                opcionesMobiliario.style.display = "none";
+                locativo.disabled = false;
+            }
         });
 
         document.getElementById("miFormulario").addEventListener("submit", function (e) {
